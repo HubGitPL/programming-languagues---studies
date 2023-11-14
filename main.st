@@ -19,7 +19,11 @@ nazwa
 	"podaje nazwe wielokata"
 
 	^nazwa!
-	
+wierzcholki
+    "podaje wierzcholki"
+    
+    ^wierzcholki!
+    
 liczbaWierzcholkow
     "podaje liczbe wierzcholkow"
     
@@ -44,9 +48,6 @@ drukuj
     drukowanie := drukowanie, nowaLinia, 'Pole = ', ((self pole) asString).
     ^Transcript show: drukowanie; cr.! !
 
-
-
-
 Wielokat subclass: #Kwadrat
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -62,14 +63,32 @@ Wielokat subclass: #Kwadrat
 	| p |
 
 	p:=self pole + figura pole.
-	^(Kwadrat new) initialize: (p sqrt)! !
+	^(Kwadrat new) initialize: (p sqrt)!
 
+wysrodkuj
+    "przenosi środek układu współrzędnych w punkt przecięcia przekątnych"
+    
+    | bok k2 x y |
+    
+    bok := (wierzcholki at: 2) x.
+    k2 := (Kwadrat new) initialize: bok.
+    1 to: (self liczbaWierzcholkow) do: [ :i |
+        x := ((wierzcholki at: i) x) - (bok/2).
+        y := ((wierzcholki at: i) y) - (bok/2).
+        k2 wierzcholki at: i put: x@y.
+    ].
+    ^k2! !
+	
 !Kwadrat methodsFor: 'actions'!
 
 pole
 	"licz pole kwadratu"
+	| bok |
 	
-	^(wierzcholki at: 2) x squared! !
+	bok := ((wierzcholki at: 2) x) - ((wierzcholki at: 1) x).
+	^bok squared! !
+	
+
 
 !Kwadrat methodsFor: 'initialize-release'!
 
@@ -129,3 +148,6 @@ t2 drukuj.
 Transcript cr; show: 'k+t'.
 k1 := k + t.
 k1 drukuj.
+
+k2 := k wysrodkuj.
+k2 drukuj.
