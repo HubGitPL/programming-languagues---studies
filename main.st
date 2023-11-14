@@ -97,8 +97,8 @@ Wielokat subclass: #TrojkatRownoramienny
 
 	p:=self pole + figura pole.
 	h:=(2*p*((wierzcholki at: 3) y)/((wierzcholki at: 2) x)) sqrt.
-	a:=2*p/((wierzcholki at: 3) y).
-	^(TrojkatRownoramienny new) initialize: a h! !
+	a:=2*p/h.
+	^(TrojkatRownoramienny new) initialize: a wysokosc: h! !
 
 !TrojkatRownoramienny methodsFor: 'actions'!
 
@@ -123,3 +123,9 @@ wysokosc: 2.
 Transcript show: 'Dane sa wielokaty:'; cr.
 t drukuj.
 k drukuj.
+Transcript cr; show: 't+k'.
+t2 := t+ k.
+t2 drukuj.
+Transcript cr; show: 'k+t'.
+k1 := k + t.
+k1 drukuj.
